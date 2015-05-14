@@ -18,16 +18,16 @@ provider "openstack" {
 
 #OpsManager
 resource "openstack_compute_floatingip_v2" "floatip_opsman" {
-  region = "{var.region}"
-  pool = "{var.floating_ip_pool}"
+  region = "${var.region}"
+  pool = "${var.floating_ip_pool}"
 }
 
 
 
 # HaProxy if required"
 resource "openstack_compute_floatingip_v2" "floatip_haproxy" {
-  region = "{var.region}"
-  pool = "{var.floating_ip_pool}"
+  region = "${var.region}"
+  pool = "${var.floating_ip_pool}"
 }
 
 
@@ -45,7 +45,7 @@ resource "openstack_networking_network_v2" "pcf_internal" {
 #2. Create subnet`
 resource "openstack_networking_subnet_v2" "pcf_internal_subnet" {
   network_id = "${openstack_networking_network_v2.pcf_internal.id}"
-  cidr = "{var.network}.199.0/24"
+  cidr = "${var.network}.199.0/24"
   ip_version = 4
 }
 
@@ -59,7 +59,7 @@ resource "openstack_networking_subnet_v2" "pcf_internal_subnet" {
 
 #4. Create interface Internal / External
 resource "openstack_networking_router_interface_v2" "interface_router_pcf" {
-  region = "{var.region}"
+  region = "${var.region}"
   #router_id = "${openstack_networking_router_v2.router_pcf.id}"
   router_id = "ad6b760b-3611-4597-895e-c918c9e5d228"
   subnet_id = "${openstack_networking_subnet_v2.pcf_internal_subnet.id}"
