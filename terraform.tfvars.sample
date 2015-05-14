@@ -1,0 +1,34 @@
+# The first two octets to use within the VPC, e.g. 10.0 or 192.168
+
+network = "192.168" 
+
+# The API of your Openstack instance to auth against, like http://10.2.95.100:5000/v2.0
+
+identity="http://10.2.95.100:5000/v2.0"
+
+# The name of the tenant to use - this must already be defined
+tenant_name="TENANT"
+
+# The ID of the tenant, might be the same as the tenant name
+tenant_id="MYTENANT"
+
+# User to authenticate against the Openstack API
+username="USER"
+# Password for that user
+password="PASS"
+
+# Literal path to public ssh key file on the computer running Terraform - /home/user/keys/example.pub
+public_key_path="/Users/myuser/.ssh/id_rsa.pub"
+
+# Literal path to private ssh key file on the computer running Terraform - /home/user/keys/example
+key_path="/Users/myuser/.ssh/id_rsa"
+
+ # Name of the subnet to use for floating/external IPs, e.g. "net04_ext"
+floating_ip_pool="net04_ext"
+
+# UUID of the external network to use
+network_external_id="xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx"
+
+# Which region to use
+region="RegionOne"
+
