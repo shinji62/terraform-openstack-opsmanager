@@ -10,5 +10,4 @@ variable "public_key_path" {}
 variable "floating_ip_pool" {}
 variable "network_external_id" {}
 variable "region" {}
-variable "api_key" {}
 variable "network" {}

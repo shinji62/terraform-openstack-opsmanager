@@ -8,7 +8,6 @@ provider "openstack" {
   auth_url = "${var.identity}"
   tenant_name = "${var.tenant_name}"
   user_name = "${var.username}"
-  #api_key= "${var.api_key}"
   password = "${var.password}"
 }
 
