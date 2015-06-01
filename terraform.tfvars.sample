@@ -18,13 +18,10 @@ username="USER"
 # Password for that user
 password="PASS"
 
-# Literal path to public ssh key file on the computer running Terraform - /home/user/keys/example.pub
-public_key_path="/Users/myuser/.ssh/id_rsa.pub"
+#Name of the key pair you created
+key_pair_name="MyKeyPair"
 
-# Literal path to private ssh key file on the computer running Terraform - /home/user/keys/example
-key_path="/Users/myuser/.ssh/id_rsa"
-
- # Name of the subnet to use for floating/external IPs, e.g. "net04_ext"
+# Name of the subnet to use for floating/external IPs, e.g. "net04_ext"
 floating_ip_pool="net04_ext"
 
 # UUID of the external network to use

@@ -14,6 +14,9 @@ destroy:
 	terraform plan -destroy -var-file terraform.tfvars -out terraform.tfplan
 	terraform apply terraform.tfplan
 
+apply-jumpbox:
+	terraform apply -var-file terraform.tfvars jumpbox/
+
 clean:
 	rm -f terraform.tfplan
 	rm -f terraform.tfstate

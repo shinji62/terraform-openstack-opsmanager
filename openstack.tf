@@ -1,5 +1,3 @@
-
-
 ########################
 # Initialize Provider  #
 ########################
@@ -24,9 +22,26 @@ resource "openstack_compute_floatingip_v2" "floatip_opsman" {
 
 
 # HaProxy if required"
-resource "openstack_compute_floatingip_v2" "floatip_haproxy" {
-  region = "${var.region}"
-  pool = "${var.floating_ip_pool}"
+#resource "openstack_compute_floatingip_v2" "floatip_haproxy" {
+ # region = "${var.region}"
+ # pool = "${var.floating_ip_pool}"
+#}
+
+
+#######################
+# OpsManager instance #
+#######################
+resource "openstack_compute_instance_v2" "opsmanager" {
+  name = "opsmanager"
+  image_name = "NewOpsManager"
+  flavor_id = "${var.flavor_id_opsman}"
+
+  key_pair = "Macbook Gwenn"
+  floating_ip = "${openstack_compute_floatingip_v2.floatip_opsman.address}"
+  security_groups = ["${openstack_compute_secgroup_v2.cf.name}"]
+  network {
+    uuid = "${openstack_networking_network_v2.pcf_internal.id}"
+  }
 }
 
 
@@ -49,25 +64,28 @@ resource "openstack_networking_subnet_v2" "pcf_internal_subnet" {
 }
 
 #3. Create new router
-#resource "openstack_networking_router_v2" "router_pcf" {
-#  region = "{var.region}"
-#  name = "router_pcf"
-#  external_gateway = "f67f0d72-0ddf-11e4-9d95-e1f29f417e2f"
-#}
+resource "openstack_networking_router_v2" "router_pcf" {
+  region = "${var.region}"
+  name = "router_pcf"
+  external_gateway = "${var.network_external_id}"
+}
 
 
 #4. Create interface Internal / External
 resource "openstack_networking_router_interface_v2" "interface_router_pcf" {
   region = "${var.region}"
-  #router_id = "${openstack_networking_router_v2.router_pcf.id}"
-  router_id = "ad6b760b-3611-4597-895e-c918c9e5d228"
+  router_id = "${openstack_networking_router_v2.router_pcf.id}"
   subnet_id = "${openstack_networking_subnet_v2.pcf_internal_subnet.id}"
 }
+
+
 
 
 ###################
 # Security Groups #
 ###################
+## NEED TO USE SAME NETWORK..
+
 
 resource "openstack_compute_secgroup_v2" "cf" {
   name = "cf"
@@ -138,5 +156,6 @@ resource "openstack_compute_secgroup_v2" "cf" {
   }
 
 }
+
 
 
